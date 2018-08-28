@@ -1,3 +1,15 @@
 <resources>
     <string name="app_name">Visitors Tracker</string>
+    <string name="start">Start</string>
+    <string name="name_title">Name:</string>
+    <string name="name_hint">Suada Haji</string>
+    <string name="phone_number">Phone Number:</string>
+    <string name="phone_number_hint">E.g. 254702667076</string>
+    <string name="visiting_who">Visiting Who:</string>
+    <string name="empty_visitor_name">Kindly fill in your name</string>
+    <string name="visitor_name_length_long">Name is too long</string>
+    <string name="visitor_name_not_matching">Use letters only</string>
+    <string name="phone_number_not_marching_pattern">Use numbers only</string>
+    <string name="name_regex">^[ A-Za-z]+$</string>
+    <string name="number_regex_pattern">[0-9]+</string>
 </resources>
