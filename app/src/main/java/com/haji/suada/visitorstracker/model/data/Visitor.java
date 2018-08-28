@@ -5,18 +5,18 @@ import android.arch.persistence.room.Entity;
 import android.arch.persistence.room.PrimaryKey;
 
 @Entity
-public class User {
+public class Visitor {
     @PrimaryKey(autoGenerate = true)
     private int id;
 
-    @ColumnInfo(name = "user_name")
-    private String userName;
+    @ColumnInfo(name = "visitor_name")
+    private String visitorName;
     @ColumnInfo(name = "phone_number")
     private String phoneNumber;
     @ColumnInfo(name = "visiting_who")
     private String visitingWho;
 
-    public User() {
+    public Visitor() {
     }
 
     public int getId() {
@@ -27,12 +27,12 @@ public class User {
         this.id = id;
     }
 
-    public String getUserName() {
-        return userName;
+    public String getVisitorName() {
+        return visitorName;
     }
 
-    public void setUserName(String userName) {
-        this.userName = userName;
+    public void setVisitorName(String visitorName) {
+        this.visitorName = visitorName;
     }
 
     public String getPhoneNumber() {
