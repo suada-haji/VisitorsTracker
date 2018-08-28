@@ -27,6 +27,7 @@
             android:layout_marginStart="8dp"
             android:hint="@string/name_hint"
             android:maxLength="36"
+            android:inputType="text"
             android:singleLine="true"
             app:layout_constraintBottom_toBottomOf="@+id/visitor_name_tv"
             app:layout_constraintStart_toEndOf="@+id/visitor_name_tv"
@@ -52,6 +53,7 @@
             android:hint="@string/phone_number_hint"
             android:singleLine="true"
             android:maxLength="12"
+            android:inputType="phone"
             app:layout_constraintBottom_toBottomOf="@+id/phone_number_tv"
             app:layout_constraintStart_toEndOf="@+id/phone_number_tv"
             app:layout_constraintTop_toTopOf="@+id/phone_number_tv" />
