@@ -1,7 +1,9 @@
-package com.haji.suada.visitorstracker;
+package com.haji.suada.visitorstracker.view;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+
+import com.haji.suada.visitorstracker.R;
 
 public class RegisterVisitorActivity extends AppCompatActivity {
 
