@@ -49,7 +49,7 @@ dependencies {
 
     implementation "android.arch.persistence.room:runtime:$room_version"
 
-    implementation "android.arch.persistence.room:rxjava2:$room_version"
+    annotationProcessor "android.arch.persistence.room:compiler:$room_version"
 
     //Di
     implementation "com.google.dagger:dagger:$daggerVersion"
