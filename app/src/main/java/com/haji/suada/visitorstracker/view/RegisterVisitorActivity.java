@@ -2,9 +2,7 @@ package com.haji.suada.visitorstracker.view;
 
 import android.arch.lifecycle.ViewModelProvider;
 import android.arch.lifecycle.ViewModelProviders;
-import android.content.Intent;
 import android.databinding.DataBindingUtil;
-import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.NavUtils;
 import android.text.Editable;
@@ -19,6 +17,8 @@ import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.Toast;
 
+import com.creativityapps.gmailbackgroundlibrary.BackgroundMail;
+import com.haji.suada.visitorstracker.BuildConfig;
 import com.haji.suada.visitorstracker.R;
 import com.haji.suada.visitorstracker.core.Helper;
 import com.haji.suada.visitorstracker.databinding.ActivityRegisterVisitorBinding;
@@ -83,10 +83,9 @@ public class RegisterVisitorActivity extends DaggerAppCompatActivity implements 
                 visitor.setVisitedDate(getCurrentTime());
                 visitorViewModel.insert(visitor);
                 notifyAndelan();
-                finish();
 
             } else {
-                validateVisitorname(visitor_name, phone_number);
+                validateVisitorDetails(visitor_name, phone_number);
             }
         });
     }
@@ -153,7 +152,7 @@ public class RegisterVisitorActivity extends DaggerAppCompatActivity implements 
         return sdf.format(new Date());
     }
 
-    private void validateVisitorname(String visitorName, String phoneNumber) {
+    private void validateVisitorDetails(String visitorName, String phoneNumber) {
         if (TextUtils.isEmpty(visitorName)) {
             Toast.makeText(this, R.string.empty_visitor_name, Toast.LENGTH_SHORT).show();
         }
@@ -195,9 +194,13 @@ public class RegisterVisitorActivity extends DaggerAppCompatActivity implements 
     private void notifyAndelan() {
         SUBJECT = getString(R.string.email_subject);
 
-        Intent emailIntent = new Intent(Intent.ACTION_SENDTO, Uri.parse("mailto:" + TO));
-        emailIntent.putExtra(Intent.EXTRA_SUBJECT, SUBJECT);
-        emailIntent.putExtra(Intent.EXTRA_TEXT, MESSAGE);
-        startActivity(Intent.createChooser(emailIntent, "Select Email Sending App :"));
+        BackgroundMail.newBuilder(this)
+                .withUsername(BuildConfig.app_mail)
+                .withPassword(BuildConfig.password)
+                .withMailto(TO)
+                .withType(BackgroundMail.TYPE_PLAIN)
+                .withSubject(SUBJECT)
+                .withBody(MESSAGE)
+                .send();
     }
 }
