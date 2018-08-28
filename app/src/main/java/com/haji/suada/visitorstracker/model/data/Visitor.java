@@ -15,6 +15,8 @@ public class Visitor {
     private String phoneNumber;
     @ColumnInfo(name = "visiting_who")
     private String visitingWho;
+    @ColumnInfo(name = "visited_date")
+    private String visitedDate;
 
     public Visitor() {
     }
@@ -49,5 +51,13 @@ public class Visitor {
 
     public void setVisitingWho(String visitingWho) {
         this.visitingWho = visitingWho;
+    }
+
+    public String getVisitedDate() {
+        return visitedDate;
+    }
+
+    public void setVisitedDate(String visitedDate) {
+        this.visitedDate = visitedDate;
     }
 }
