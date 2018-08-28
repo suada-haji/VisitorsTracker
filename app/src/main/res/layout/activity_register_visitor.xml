@@ -66,19 +66,13 @@
             android:text="@string/visiting_who"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/phone_number_tv" />
-
-        <EditText
-            android:id="@+id/visiting_who_et"
-            android:layout_width="wrap_content"
+        <Spinner
+            android:id="@+id/spinner"
+            android:layout_width="180dp"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="8dp"
-            android:layout_marginStart="8dp"
-            android:hint="@string/name_hint"
-            android:maxLength="20"
-            android:singleLine="true"
             app:layout_constraintBottom_toBottomOf="@+id/visiting_who_tv"
             app:layout_constraintStart_toEndOf="@+id/visiting_who_tv"
-            app:layout_constraintTop_toTopOf="@+id/visiting_who_tv" />
+            app:layout_constraintTop_toTopOf="@+id/visiting_who_tv"/>
 
         <Button
             android:id="@+id/submit_btn"

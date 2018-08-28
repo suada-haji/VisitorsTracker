@@ -2,36 +2,44 @@ package com.haji.suada.visitorstracker.view;
 
 import android.arch.lifecycle.ViewModelProvider;
 import android.arch.lifecycle.ViewModelProviders;
+import android.content.Intent;
 import android.databinding.DataBindingUtil;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.NavUtils;
 import android.text.Editable;
 import android.text.TextUtils;
 import android.text.TextWatcher;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Spinner;
 import android.widget.Toast;
 
 import com.haji.suada.visitorstracker.R;
+import com.haji.suada.visitorstracker.core.Helper;
 import com.haji.suada.visitorstracker.databinding.ActivityRegisterVisitorBinding;
+import com.haji.suada.visitorstracker.model.data.Andelan;
 import com.haji.suada.visitorstracker.model.data.Visitor;
 import com.haji.suada.visitorstracker.viewmodel.VisitorViewModel;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.List;
 import java.util.Locale;
 
 import javax.inject.Inject;
 
 import dagger.android.support.DaggerAppCompatActivity;
 
-public class RegisterVisitorActivity extends DaggerAppCompatActivity {
+public class RegisterVisitorActivity extends DaggerAppCompatActivity implements AdapterView.OnItemSelectedListener {
 
     private EditText visitorName;
     private EditText phoneNumber;
-    private EditText visitingWho;
-    private  Button button;
+    private Button button;
 
     private VisitorViewModel visitorViewModel;
 
@@ -42,6 +50,11 @@ public class RegisterVisitorActivity extends DaggerAppCompatActivity {
     private String phone_number = "";
     private String nameRegex;
     private String numberRegex;
+    private Visitor visitor;
+    private Spinner spinner;
+    private String TO, SUBJECT, MESSAGE;
+
+    private Helper helper;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -55,22 +68,21 @@ public class RegisterVisitorActivity extends DaggerAppCompatActivity {
         visitorViewModel = ViewModelProviders.of(this, viewModelFactory).get(VisitorViewModel.class);
         visitorName = binding.visitorNameEt;
         phoneNumber = binding.phoneNumberEt;
-        visitingWho = binding.visitingWhoEt;
 
         button = binding.submitBtn;
-        nameRegex =  getString(R.string.name_regex);
+        spinner = binding.spinner;
+        spinner.setOnItemSelectedListener(this);
+        nameRegex = getString(R.string.name_regex);
         numberRegex = getString(R.string.number_regex_pattern);
+        helper = new Helper(this);
+        visitor = new Visitor();
         init();
 
         button.setOnClickListener(v -> {
             if (button.isActivated()) {
-                Visitor visitor = new Visitor();
-                visitor.setVisitorName(visitorName.getText().toString());
-                visitor.setPhoneNumber(phoneNumber.getText().toString());
-                visitor.setVisitingWho(visitingWho.getText().toString());
                 visitor.setVisitedDate(getCurrentTime());
-
                 visitorViewModel.insert(visitor);
+                notifyAndelan();
                 finish();
 
             } else {
@@ -93,6 +105,7 @@ public class RegisterVisitorActivity extends DaggerAppCompatActivity {
             @Override
             public void afterTextChanged(Editable s) {
                 visitor_name = s.toString();
+                visitor.setVisitorName(visitor_name);
 
                 if (visitor_name.matches(nameRegex) && visitor_name.length() <= 36 && phone_number.matches(numberRegex) && phone_number.length() <= 12) {
                     button.setActivated(true);
@@ -115,6 +128,7 @@ public class RegisterVisitorActivity extends DaggerAppCompatActivity {
             @Override
             public void afterTextChanged(Editable s) {
                 phone_number = s.toString();
+                visitor.setPhoneNumber(phone_number);
                 if (visitor_name.matches(nameRegex) && visitor_name.length() <= 36 && phone_number.matches(numberRegex) && phone_number.length() <= 12) {
                     button.setActivated(true);
                 } else {
@@ -123,6 +137,10 @@ public class RegisterVisitorActivity extends DaggerAppCompatActivity {
             }
         });
 
+        List<Andelan> itemList = helper.getAndelans();
+        ArrayAdapter<Andelan> spinnerAdapter = new ArrayAdapter<Andelan>(this, android.R.layout.simple_spinner_item, itemList);
+        spinnerAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        spinner.setAdapter(spinnerAdapter);
     }
 
     @Override
@@ -161,4 +179,25 @@ public class RegisterVisitorActivity extends DaggerAppCompatActivity {
         }
     }
 
+    @Override
+    public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+        Andelan andelan = (Andelan) parent.getItemAtPosition(position);
+        visitor.setVisitingWho(andelan.getFullName());
+        TO = andelan.getEmail();
+        MESSAGE = String.format(getResources().getString(R.string.email_message_body), andelan.getFullName(), visitor_name);
+    }
+
+    @Override
+    public void onNothingSelected(AdapterView<?> parent) {
+
+    }
+
+    private void notifyAndelan() {
+        SUBJECT = getString(R.string.email_subject);
+
+        Intent emailIntent = new Intent(Intent.ACTION_SENDTO, Uri.parse("mailto:" + TO));
+        emailIntent.putExtra(Intent.EXTRA_SUBJECT, SUBJECT);
+        emailIntent.putExtra(Intent.EXTRA_TEXT, MESSAGE);
+        startActivity(Intent.createChooser(emailIntent, "Select Email Sending App :"));
+    }
 }

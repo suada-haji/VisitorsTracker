@@ -12,4 +12,6 @@
     <string name="phone_number_not_marching_pattern">Use numbers only</string>
     <string name="name_regex">^[ A-Za-z]+$</string>
     <string name="number_regex_pattern">[0-9]+</string>
+    <string name="email_message_body">Hi %1$s,\n %2$s is waiting for you at the reception.\nRegards,\nVisty</string>
+    <string name="email_subject">RE: VISITOR AT THE RECEPTION</string>
 </resources>
