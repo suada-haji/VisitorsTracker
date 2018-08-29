@@ -1,15 +1,21 @@
 <resources>
-    <string name="app_name">Visitors Tracker</string>
-    <string name="start">Start</string>
+    <string name="app_name">Heartly</string>
+    <string name="start">Welcome</string>
+    <string name="submit">Submit</string>
+    <string name="thank_you">Thank you!</string>
+    <string name="logo_name">heartly.</string>
     <string name="name_title">Name:</string>
     <string name="name_hint">Suada Haji</string>
-    <string name="phone_number">Phone Number:</string>
+    <string name="phone_number">Number:</string>
     <string name="phone_number_hint">E.g. 254702667076</string>
-    <string name="visiting_who">Visiting Who:</string>
+    <string name="visiting_who">Host:</string>
     <string name="empty_visitor_name">Kindly fill in your name</string>
     <string name="visitor_name_length_long">Name is too long</string>
     <string name="visitor_name_not_matching">Use letters only</string>
     <string name="phone_number_not_marching_pattern">Use numbers only</string>
     <string name="name_regex">^[ A-Za-z]+$</string>
     <string name="number_regex_pattern">[0-9]+</string>
+    <string name="email_message_body">Hi %1$s,\n\n%2$s, your visitor is heartily waiting for you at the reception 😊.\n\nRegards,\nHeartly</string>
+    <string name="email_subject">RE: VISITOR AT THE RECEPTION</string>
+    <string name="email_success_msg">Hurrah, %1$s has been \ninformed of your \npresence!!</string>
 </resources>
