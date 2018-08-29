@@ -16,4 +16,5 @@
     <string name="number_regex_pattern">[0-9]+</string>
     <string name="email_message_body">Hi %1$s,\n\n%2$s, your visitor is heartily waiting for you at the reception 😊.\n\nRegards,\nHeartly</string>
     <string name="email_subject">RE: VISITOR AT THE RECEPTION</string>
+    <string name="email_success_msg">Hurrah, %1$s has been \ninformed of your \npresence!!</string>
 </resources>

@@ -9,6 +9,39 @@
         android:background="@color/colorBackground"
         tools:context=".view.RegisterVisitorActivity">
 
+        <ImageView
+            android:id="@+id/success_image"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/happy"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.276"
+            android:visibility="invisible"/>
+
+        <TextView
+            android:id="@+id/success_msg_tv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="8dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginLeft="8dp"
+            android:layout_marginRight="8dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
+            android:fontFamily="@font/avenir_heavy"
+            android:text="@string/email_success_msg"
+            android:textAlignment="center"
+            android:textColor="@android:color/white"
+            android:textSize="@dimen/success_msg_size"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            android:visibility="invisible"/>
+
         <EditText
             android:id="@+id/visitor_name_et"
             android:layout_width="match_parent"

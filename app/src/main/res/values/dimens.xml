@@ -12,4 +12,5 @@
     <dimen name="margin_45">45dp</dimen>
     <dimen name="margin_40">40dp</dimen>
     <dimen name="text_16">16sp</dimen>
+    <dimen name="success_msg_size">18sp</dimen>
 </resources>

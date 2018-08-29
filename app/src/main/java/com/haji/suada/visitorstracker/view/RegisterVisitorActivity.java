@@ -37,6 +37,7 @@ import dagger.android.support.DaggerAppCompatActivity;
 
 public class RegisterVisitorActivity extends DaggerAppCompatActivity implements AdapterView.OnItemSelectedListener {
 
+    private ActivityRegisterVisitorBinding binding;
     private EditText visitorName;
     private EditText phoneNumber;
     private Button button;
@@ -59,7 +60,7 @@ public class RegisterVisitorActivity extends DaggerAppCompatActivity implements 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        ActivityRegisterVisitorBinding binding = DataBindingUtil.setContentView(this, R.layout.activity_register_visitor);
+        binding = DataBindingUtil.setContentView(this, R.layout.activity_register_visitor);
 
         if (getSupportActionBar() != null) {
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
@@ -184,6 +185,7 @@ public class RegisterVisitorActivity extends DaggerAppCompatActivity implements 
         visitor.setVisitingWho(andelan.getFullName());
         TO = andelan.getEmail();
         MESSAGE = String.format(getResources().getString(R.string.email_message_body), andelan.getFullName(), visitor_name);
+        binding.successMsgTv.setText(String.format(getResources().getString(R.string.email_success_msg), andelan.getFullName()));
     }
 
     @Override
@@ -201,6 +203,16 @@ public class RegisterVisitorActivity extends DaggerAppCompatActivity implements 
                 .withType(BackgroundMail.TYPE_PLAIN)
                 .withSubject(SUBJECT)
                 .withBody(MESSAGE)
+                .withOnSuccessCallback(() -> {
+                    visitorName.setVisibility(View.GONE);
+                    phoneNumber.setVisibility(View.GONE);
+                    button.setVisibility(View.GONE);
+                    binding.visitingWhoTv.setVisibility(View.GONE);
+                    spinner.setVisibility(View.GONE);
+                    binding.successImage.setVisibility(View.VISIBLE);
+                    binding.successMsgTv.setVisibility(View.VISIBLE);
+
+                })
                 .send();
     }
 }
