@@ -1,12 +1,13 @@
 <resources>
     <string name="app_name">Heartly</string>
     <string name="start">Welcome</string>
+    <string name="submit">Submit</string>
     <string name="logo_name">heartly.</string>
     <string name="name_title">Name:</string>
     <string name="name_hint">Suada Haji</string>
-    <string name="phone_number">Phone Number:</string>
+    <string name="phone_number">Number:</string>
     <string name="phone_number_hint">E.g. 254702667076</string>
-    <string name="visiting_who">Visiting Who:</string>
+    <string name="visiting_who">Host:</string>
     <string name="empty_visitor_name">Kindly fill in your name</string>
     <string name="visitor_name_length_long">Name is too long</string>
     <string name="visitor_name_not_matching">Use letters only</string>

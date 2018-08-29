@@ -6,6 +6,8 @@
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
+        <item name="actionBarTheme">@style/ToolbarStyle</item>
+        <item name="android:spinnerDropDownItemStyle">@style/mySpinnerItemStyle</item>
     </style>
 
     <!-- Home Screen theme. -->
@@ -15,6 +17,14 @@
         <item name="colorAccent">@color/colorAccent</item>
         <item name="android:windowTranslucentStatus">true</item>
         <item name="android:windowTranslucentNavigation">true</item>
+    </style>
+
+    <style name="ToolbarStyle" parent="Widget.AppCompat.ActionBar">
+        <item name="android:textColorPrimary">@color/colorText</item>
+    </style>
+
+    <style name="mySpinnerItemStyle" parent="@android:style/Widget.Holo.DropDownItem.Spinner">
+        <item name="android:textColor">@color/colorText</item>
     </style>
 
 </resources>

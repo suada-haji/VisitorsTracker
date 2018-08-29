@@ -7,7 +7,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         tools:context=".view.MainActivity"
-        android:background="@color/colorAccent">
+        android:background="@color/colorBackground">
 
         <ImageView
             android:id="@+id/logo"
@@ -43,7 +43,7 @@
             android:text="@string/start"
             android:textSize="@dimen/btn_text_size"
             android:fontFamily="@font/avenir_heavy"
-            android:textColor="@color/colorAccent"
+            android:textColor="@color/colorBackground"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
