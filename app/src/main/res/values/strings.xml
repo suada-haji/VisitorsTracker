@@ -2,6 +2,7 @@
     <string name="app_name">Heartly</string>
     <string name="start">Welcome</string>
     <string name="submit">Submit</string>
+    <string name="thank_you">Thank you!</string>
     <string name="logo_name">heartly.</string>
     <string name="name_title">Name:</string>
     <string name="name_hint">Suada Haji</string>

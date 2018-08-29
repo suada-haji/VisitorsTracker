@@ -2,6 +2,7 @@ package com.haji.suada.visitorstracker.view;
 
 import android.arch.lifecycle.ViewModelProvider;
 import android.arch.lifecycle.ViewModelProviders;
+import android.content.Intent;
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.support.v4.app.NavUtils;
@@ -35,12 +36,13 @@ import javax.inject.Inject;
 
 import dagger.android.support.DaggerAppCompatActivity;
 
-public class RegisterVisitorActivity extends DaggerAppCompatActivity implements AdapterView.OnItemSelectedListener {
+public class RegisterVisitorActivity extends DaggerAppCompatActivity implements View.OnClickListener, AdapterView.OnItemSelectedListener {
 
     private ActivityRegisterVisitorBinding binding;
     private EditText visitorName;
     private EditText phoneNumber;
-    private Button button;
+    private Button submitButton;
+    private Button thankYouButton;
 
     private VisitorViewModel visitorViewModel;
 
@@ -53,7 +55,8 @@ public class RegisterVisitorActivity extends DaggerAppCompatActivity implements 
     private String numberRegex;
     private Visitor visitor;
     private Spinner spinner;
-    private String TO, SUBJECT, MESSAGE;
+    private String TO;
+    private String MESSAGE;
 
     private Helper helper;
 
@@ -70,7 +73,10 @@ public class RegisterVisitorActivity extends DaggerAppCompatActivity implements 
         visitorName = binding.visitorNameEt;
         phoneNumber = binding.phoneNumberEt;
 
-        button = binding.submitBtn;
+        submitButton = binding.submitBtn;
+        thankYouButton = binding.thankYouBtn;
+        thankYouButton.setOnClickListener(this);
+        submitButton.setOnClickListener(this);
         spinner = binding.spinner;
         spinner.setOnItemSelectedListener(this);
         nameRegex = getString(R.string.name_regex);
@@ -79,16 +85,7 @@ public class RegisterVisitorActivity extends DaggerAppCompatActivity implements 
         visitor = new Visitor();
         init();
 
-        button.setOnClickListener(v -> {
-            if (button.isActivated()) {
-                visitor.setVisitedDate(getCurrentTime());
-                visitorViewModel.insert(visitor);
-                notifyAndelan();
-
-            } else {
-                validateVisitorDetails(visitor_name, phone_number);
-            }
-        });
+        submitButton.setOnClickListener(this);
     }
 
     public void init() {
@@ -108,9 +105,9 @@ public class RegisterVisitorActivity extends DaggerAppCompatActivity implements 
                 visitor.setVisitorName(visitor_name);
 
                 if (visitor_name.matches(nameRegex) && visitor_name.length() <= 36 && phone_number.matches(numberRegex) && phone_number.length() <= 12) {
-                    button.setActivated(true);
+                    submitButton.setActivated(true);
                 } else {
-                    button.setActivated(false);
+                    submitButton.setActivated(false);
                 }
             }
         });
@@ -130,9 +127,9 @@ public class RegisterVisitorActivity extends DaggerAppCompatActivity implements 
                 phone_number = s.toString();
                 visitor.setPhoneNumber(phone_number);
                 if (visitor_name.matches(nameRegex) && visitor_name.length() <= 36 && phone_number.matches(numberRegex) && phone_number.length() <= 12) {
-                    button.setActivated(true);
+                    submitButton.setActivated(true);
                 } else {
-                    button.setActivated(false);
+                    submitButton.setActivated(false);
                 }
             }
         });
@@ -194,25 +191,45 @@ public class RegisterVisitorActivity extends DaggerAppCompatActivity implements 
     }
 
     private void notifyAndelan() {
-        SUBJECT = getString(R.string.email_subject);
-
         BackgroundMail.newBuilder(this)
                 .withUsername(BuildConfig.app_mail)
                 .withPassword(BuildConfig.password)
                 .withMailto(TO)
                 .withType(BackgroundMail.TYPE_PLAIN)
-                .withSubject(SUBJECT)
+                .withSubject(getString(R.string.email_subject))
                 .withBody(MESSAGE)
                 .withOnSuccessCallback(() -> {
                     visitorName.setVisibility(View.GONE);
                     phoneNumber.setVisibility(View.GONE);
-                    button.setVisibility(View.GONE);
+                    submitButton.setVisibility(View.GONE);
                     binding.visitingWhoTv.setVisibility(View.GONE);
                     spinner.setVisibility(View.GONE);
                     binding.successImage.setVisibility(View.VISIBLE);
                     binding.successMsgTv.setVisibility(View.VISIBLE);
+                    thankYouButton.setVisibility(View.VISIBLE);
 
                 })
                 .send();
+    }
+
+    @Override
+    public void onClick(View v) {
+        switch (v.getId()){
+            case R.id.submit_btn:
+                if (submitButton.isActivated()) {
+                    visitor.setVisitedDate(getCurrentTime());
+                    visitorViewModel.insert(visitor);
+                    notifyAndelan();
+
+                } else {
+                    validateVisitorDetails(visitor_name, phone_number);
+                }
+                break;
+            case R.id.thank_you_btn:
+                startActivity(new Intent(RegisterVisitorActivity.this, MainActivity.class));
+                finish();
+                break;
+        }
+
     }
 }

@@ -126,6 +126,21 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/spinner" />
+        <Button
+            android:id="@+id/thank_you_btn"
+            android:layout_width="@dimen/btn_size"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/margin_8"
+            android:background="@android:color/white"
+            android:text="@string/thank_you"
+            android:textSize="@dimen/btn_text_size"
+            android:fontFamily="@font/avenir_heavy"
+            android:textColor="@color/colorBackground"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/success_msg_tv"
+            android:visibility="gone"/>
 
     </android.support.constraint.ConstraintLayout>
 </layout>
