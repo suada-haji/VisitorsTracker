@@ -63,4 +63,7 @@ dependencies {
     annotationProcessor "com.google.dagger:dagger-android-processor:$daggerVersion"
 
     implementation "com.github.yesidlazaro:GmailBackground:$gmail_background_version"
+
+    androidTestImplementation "android.arch.core:core-testing:$lifecycle_version"
+
 }
